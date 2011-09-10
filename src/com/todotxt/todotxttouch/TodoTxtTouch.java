@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/TodoTxtTouch.java
  *
- * Copyright (c) 2009-2011 Gina Trapani, mathias, Stephen Henderson, Tormod Haugen, shanest, Florian Behr
+ * Copyright (c) 2009-2011 Gina Trapani, mathias, Stephen Henderson, Tormod Haugen, shanest, Florian Behr, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -26,8 +26,9 @@
  * @author shanest <ssshanest[at]gmail[dot]com>
  * @author Adam Zaloudek <AdamZaloudek[at]hotmail[dot]com>
  * @author Florian Behr <mail[at]florianbehr[dot]de>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2009-2011 Gina Trapani, mathias, Stephen Henderson, Tormod Haugen, shanest, Adam Zaloudek, Florian Behr
+ * @copyright 2009-2011 Gina Trapani, mathias, Stephen Henderson, Tormod Haugen, shanest, Adam Zaloudek, Florian Behr, Tomasz Roszko
  */
 package com.todotxt.todotxttouch;
 
@@ -41,7 +42,6 @@ import java.util.ListIterator;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -54,7 +54,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -85,7 +86,7 @@ import com.todotxt.todotxttouch.util.Strings;
 import com.todotxt.todotxttouch.util.Util;
 import com.todotxt.todotxttouch.util.Util.OnMultiChoiceDialogListener;
 
-public class TodoTxtTouch extends ListActivity implements
+public class TodoTxtTouch extends BaseListActivity implements
 		OnSharedPreferenceChangeListener {
 
 	final static String TAG = TodoTxtTouch.class.getSimpleName();
@@ -103,7 +104,6 @@ public class TodoTxtTouch extends ListActivity implements
 	Menu options_menu;
 
 	private TaskAdapter m_adapter;
-	TodoApplication m_app;
 
 	// filter variables
 	private ArrayList<Priority> m_prios = new ArrayList<Priority>();
@@ -928,28 +928,40 @@ public class TodoTxtTouch extends ListActivity implements
 				holder.taskid.setText(String.format("%02d", task.getId() + 1));
 				holder.taskprio.setText(task.getPriority().inListFormat());
 				SpannableString ss = new SpannableString(task.inScreenFormat());
-				Util.setGray(ss, task.getProjects());
-				Util.setGray(ss, task.getContexts());
+				
+				// Get color attribute values from theme
+				TypedArray val = getTheme().obtainStyledAttributes(new int[] {
+					R.attr.taskTextColor,
+					R.attr.taskContextColor,
+					R.attr.taskProjectColor,
+					R.attr.taskPriorityAColor,
+					R.attr.taskPriorityBColor,
+					R.attr.taskPriorityCColor,
+					R.attr.taskPriorityDColor,
+					R.attr.taskPriorityDefaultColor
+					});
+				
+				Util.setColor(ss, task.getProjects(), val.getColor(2, Color.MAGENTA));
+				Util.setColor(ss, task.getContexts(), val.getColor(1, Color.MAGENTA));
 				holder.tasktext.setText(ss);
-
-				Resources res = getResources();
-				holder.tasktext.setTextColor(res.getColor(R.color.black));
+				
+				holder.tasktext.setTextColor(val.getColor(0, Color.MAGENTA));
 
 				switch (task.getPriority()) {
 				case A:
-					holder.taskprio.setTextColor(res.getColor(R.color.green));
+					holder.taskprio.setTextColor(val.getColor(3, Color.MAGENTA));
 					break;
 				case B:
-					holder.taskprio.setTextColor(res.getColor(R.color.blue));
+					holder.taskprio.setTextColor(val.getColor(4, Color.MAGENTA));
 					break;
 				case C:
-					holder.taskprio.setTextColor(res.getColor(R.color.orange));
+					holder.taskprio.setTextColor(val.getColor(5, Color.MAGENTA));
 					break;
 				case D:
-					holder.taskprio.setTextColor(res.getColor(R.color.gold));
+					holder.taskprio.setTextColor(val.getColor(6, Color.MAGENTA));
 					break;
 				default:
-					holder.taskprio.setTextColor(res.getColor(R.color.black));
+					holder.taskprio.setTextColor(val.getColor(7, Color.MAGENTA));
 				}
 				if (task.isCompleted()) {
 					Log.v(TAG, "Striking through " + task.getText());

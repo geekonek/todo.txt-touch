@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/AddTask.java
  *
- * Copyright (c) 2009-2011 mathias, Gina Trapani, Tormod Haugen
+ * Copyright (c) 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -23,14 +23,14 @@
  * @author mathias <mathias[at]x2[dot](none)>
  * @author Tormod Haugen <tormodh[at]gmail[dot]com>
  * @author mathias <mathias[at]ws7862[dot](none)>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2009-2011 mathias, Gina Trapani, Tormod Haugen
+ * @copyright 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tomasz Roszko
  */
 package com.todotxt.todotxttouch;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -55,7 +55,7 @@ import com.todotxt.todotxttouch.util.CursorPositionCalculator;
 import com.todotxt.todotxttouch.util.Strings;
 import com.todotxt.todotxttouch.util.Util;
 
-public class AddTask extends Activity {
+public class AddTask extends BaseActivity {
 
 	private final static String TAG = AddTask.class.getSimpleName();
 

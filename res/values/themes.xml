@@ -4,7 +4,7 @@
 
 Todo.txt Touch/res/values/themes.xml
 
-Copyright (c) 2009-2011 Gina Trapani, Hrayr Artunyan
+Copyright (c) 2009-2011 Gina Trapani, Hrayr Artunyan, Tomasz Roszko
 
 LICENSE:
 
@@ -23,25 +23,61 @@ You should have received a copy of the GNU General Public License along with Tod
 
 @author Gina Trapani <ginatrapani[at]gmail[dot]com>
 @author Hrayr Artunyan <hrayr[at]Hrayr-Artunyans-MacBook-Pro[dot]local>
+@author Tomasz Roszko <geekonek[at]gmail[dot]com>
 @license http://www.gnu.org/licenses/gpl.html
-@copyright 2009-2011 Gina Trapani, Hrayr Artunyan
+@copyright 2009-2011 Gina Trapani, Hrayr Artunyan, Tomasz Roszko
  -->
 
 <resources>
-	<style name="TodoTxtTouchLight" parent="android:Theme">
+	
+	<style name="TodoTheme" parent="android:Theme">
+	
+	</style>
+		
+	<style name="TodoTheme.WHITE" parent="TodoTheme">
 		<item name="android:textColor">#000000</item>
-		<item name="android:background">#FFFFFF</item>
 		<item name="android:divider">#DBE9FF</item>
 		<item name="android:footerDividersEnabled">true</item>
 		<item name="android:dividerHeight">1px</item>
 		<item name="android:cacheColorHint">#FFFFFF</item>
+		<item name="android:shadowColor">@color/black</item>
+		<item name="titleBar">@style/TitleBarWhite</item>
+		<item name="titleBarActionStyle">@style/TitleBarAction</item>
+		
+		
+		<!-- Task list colors -->
+		<item name="taskTextColor">@color/black</item>
+		<item name="taskPriorityAColor">@color/green</item>
+		<item name="taskPriorityBColor">@color/blue</item>
+		<item name="taskPriorityCColor">@color/orange</item>
+		<item name="taskPriorityDColor">@color/gold</item>
+		<item name="taskPriorityDefaultColor">@color/black</item>
+		<item name="taskContextColor">@color/grey</item>
+		<item name="taskProjectColor">@color/grey</item>
+		
 	</style>
-	<style name="TodoTxtTouchDark" parent="android:Theme">
+	
+	<style name="TodoTheme.BLACK" parent="TodoTheme">
 		<item name="android:textColor">#FFFFFF</item>
 		<item name="android:background">#000000</item>
 		<item name="android:divider">#DBE9FF</item>
 		<item name="android:footerDividersEnabled">true</item>
 		<item name="android:dividerHeight">1px</item>
 		<item name="android:cacheColorHint">#000000</item>
+		<item name="titleBar">@style/TitleBarBlack</item>
+		<item name="titleBarActionStyle">@style/TitleBarActionBlack</item>
+		<item name="taskId">@style/TaskIdStyle</item>
+		
+		<!-- Task list colors -->
+		<item name="taskTextColor">@color/white</item>
+		<item name="taskPriorityAColor">@color/green</item>
+		<item name="taskPriorityBColor">@color/blue</item>
+		<item name="taskPriorityCColor">@color/orange</item>
+		<item name="taskPriorityDColor">@color/gold</item>
+		<item name="taskPriorityDefaultColor">@color/black</item>
+		<item name="taskContextColor">@color/grey</item>
+		<item name="taskProjectColor">@color/grey</item>
+		
 	</style>
+	
 </resources>

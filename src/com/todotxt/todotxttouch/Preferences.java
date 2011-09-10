@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/Preferences.java
  *
- * Copyright (c) 2009-2011 Gina Trapani, mathias
+ * Copyright (c) 2009-2011 Gina Trapani, mathias, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -21,8 +21,9 @@
  *
  * @author Gina Trapani <ginatrapani[at]gmail[dot]com>
  * @author mathias <mathias[at]x2[dot](none)>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2009-2011 Gina Trapani, mathias
+ * @copyright 2009-2011 Gina Trapani, mathias, Tomasz Roszko
  */
 package com.todotxt.todotxttouch;
 
@@ -30,13 +31,16 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.util.Log;
 
 public class Preferences extends PreferenceActivity {
 	final static String TAG = Preferences.class.getSimpleName();
@@ -49,11 +53,15 @@ public class Preferences extends PreferenceActivity {
 
 	private String version;
 
+	private TodoApplication m_app;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences);
 
+		m_app = (TodoApplication) getApplication();
+		
 		PackageInfo packageInfo;
 		try {
 			packageInfo = getPackageManager().getPackageInfo(getPackageName(),
@@ -67,6 +75,24 @@ public class Preferences extends PreferenceActivity {
 		}
 		aboutDialog = findPreference("app_version");
 		logoutDialog = findPreference("logout_dropbox");
+		
+		ListPreference themePrefs = (ListPreference) findPreference("current_theme");
+		themePrefs.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+			
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				Editor editor = m_app.m_prefs.edit();
+				editor.putString(Constants.PREF_CURRENT_THEME, (String)newValue);
+				if (! editor.commit() ){
+					Log.d(TAG, "Could not save new theme selection");
+					return false;
+				}
+				
+				m_app.setTheme(getResources().getIdentifier("@style/TodoTxtTouch"+newValue, null, getPackageName()));
+				
+				return true;
+			}
+		});
 	}
 
 	protected void onResume() {

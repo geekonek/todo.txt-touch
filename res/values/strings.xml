@@ -173,4 +173,8 @@ You should have received a copy of the GNU General Public License along with Tod
 	<string name="remote_provider_name_dropbox">Dropbox</string>
 	<string name="remote_provider_desc_dropbox">Stores your todo.txt file on Dropbox.</string>
 
+	<string name="theme_pref_summary">Application theme</string>
+	<string name="theme_pref_title">Theme</string>
+	<string name="theme_pref_key">current_theme</string>
+
 </resources>

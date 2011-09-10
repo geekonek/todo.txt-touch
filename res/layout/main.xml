@@ -4,7 +4,7 @@
 
 Todo.txt Touch/res/layout/main.xml
 
-Copyright (c) 2009-2011 Gina Trapani, Hrayr Artunyan, mathias
+Copyright (c) 2009-2011 Gina Trapani, Hrayr Artunyan, mathias, Tomasz Roszko
 
 LICENSE:
 
@@ -24,8 +24,9 @@ You should have received a copy of the GNU General Public License along with Tod
 @author Gina Trapani <ginatrapani[at]gmail[dot]com>
 @author Hrayr Artunyan <hrayr[dot]artunyan[at]gmail[dot]com>
 @author mathias <mathias[at]ws7862[dot](none)>
+@author Tomasz Roszko <geekonek[at]gmail[dot]com>
 @license http://www.gnu.org/licenses/gpl.html
-@copyright 2009-2011 Gina Trapani, Hrayr Artunyan, mathias
+@copyright 2009-2011 Gina Trapani, Hrayr Artunyan, mathias, Tomasz Roszko
  -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,18 +34,18 @@ You should have received a copy of the GNU General Public License along with Tod
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
 	android:background="@color/white">
 
-	<LinearLayout style="@style/TitleBar">
+	<LinearLayout style="?titleBar" android:layout_width="fill_parent" android:layout_height="@dimen/title_height">
 		<ImageView style="@style/TitleBarLogo" android:src="@drawable/title_logo" />
 		<View style="@style/TitleBarSpring" />
 		<ImageView style="@style/TitleBarSeparator" />
 
-		<ImageButton style="@style/TitleBarAction" android:id="@+id/btn_title_refresh"
+		<ImageButton style="?titleBarActionStyle" android:id="@+id/btn_title_refresh"
 			android:src="@drawable/ic_title_sync" android:onClick="onSyncClick" />
 
 		<ProgressBar style="@style/TitleBarProgressIndicator"
 			android:id="@+id/title_refresh_progress" android:visibility="gone" />
 		<ImageView style="@style/TitleBarSeparator" />
-		<ImageButton style="@style/TitleBarAction" android:src="@drawable/ic_title_add"
+		<ImageButton style="?titleBarActionStyle" android:src="@drawable/ic_title_add"
 			android:onClick="onAddTaskClick" />
 	</LinearLayout>
 
@@ -75,15 +76,14 @@ You should have received a copy of the GNU General Public License along with Tod
 	<ImageView style="@style/HorizontalRule" />
 
 	<LinearLayout android:orientation="vertical"
-		android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:background="@color/white" android:layout_weight="1">
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:layout_weight="1">
 		<ListView android:id="@+id/android:list"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			style="@style/TodoTxtTouchLight" />
+			android:layout_width="fill_parent" android:layout_height="wrap_content"/>
 
 		<TextView android:id="@+id/android:empty"
 			android:layout_width="fill_parent" android:layout_height="fill_parent"
-			android:text="@string/main_no_items" style="@style/TodoTxtTouchLight"
+			android:text="@string/main_no_items" 
 			android:gravity="center_vertical|center_horizontal" />
 	</LinearLayout>
 </LinearLayout>

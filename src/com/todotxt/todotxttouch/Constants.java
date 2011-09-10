@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/Constants.java
  *
- * Copyright (c) 2009-2011 mathias, Gina Trapani, Tormod Haugen
+ * Copyright (c) 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -23,8 +23,9 @@
  * @author Gina Trapani <ginatrapani[at]gmail[dot]com>
  * @author Tormod Haugen <tormodh[at]gmail[dot]com>
  * @author mathias <mathias[at]ws7862[dot](none)>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2009-2011 mathias, Gina Trapani, Tormod Haugen
+ * @copyright 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tomasz Roszko
  */
 package com.todotxt.todotxttouch;
 
@@ -33,6 +34,7 @@ public class Constants {
 	public static final String PREF_FIRSTRUN = "firstrun";
 	public static final String PREF_ACCESSTOKEN_KEY = "accesstokenkey";
 	public static final String PREF_ACCESSTOKEN_SECRET = "accesstokensecret";
+	public static final String PREF_CURRENT_THEME = "current_theme";
 	public static final String DROPBOX_MODUS = "dropbox";
 
 	public final static long INVALID_ID = -1;

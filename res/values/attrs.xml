@@ -2,9 +2,9 @@
 
 <!--
 
-Todo.txt Touch/res/values/arrays.xml
+Todo.txt Touch/res/values/attrs.xml
 
-Copyright (c) 2009-2011 Gina Trapani, mathias, Tomasz Roszko
+Copyright (c) 2011 Tomasz Roszko
 
 LICENSE:
 
@@ -21,32 +21,24 @@ details.
 You should have received a copy of the GNU General Public License along with Todo.txt Touch.  If not, see
 <http://www.gnu.org/licenses/>.
 
-@author Gina Trapani <ginatrapani[at]gmail[dot]com>
-@author mathias <mathias[at]x2[dot](none)>
 @author Tomasz Roszko <geekonek[at]gmail[dot]com>
 @license http://www.gnu.org/licenses/gpl.html
-@copyright 2009-2011 Gina Trapani, mathias
+@copyright 2011 Tomasz Roszko
  -->
 
 <resources>
-
-	<string-array name="sort">
-		<item>Priority</item>
-		<item>ID Ascending</item>
-		<item>ID Descending</item>
-		<item>Text (A-Z)</item>
-	</string-array>
-
-	<!-- Theme list configuration -->
-	<string-array name="theme_list_entries">
-		<item>White</item>
-		<item>Black</item>
-	</string-array>
-
-	<string-array name="theme_list_values">
-		<item>WHITE</item>
-		<item>BLACK</item>
-	</string-array>
-	<!-- /Theme list configuration -->
-
+	<attr name="titleBar" format="reference"/>
+	<attr name="titleBarActionStyle" format="reference"/>
+	<attr name="taskId" format="reference"/>
+	
+	<!-- task list colors -->
+	<attr name="taskTextColor" format="reference"/>	
+	<attr name="taskPriorityAColor" format="reference"/>
+	<attr name="taskPriorityBColor" format="reference"/>
+	<attr name="taskPriorityCColor" format="reference"/>
+	<attr name="taskPriorityDColor" format="reference"/>
+	<attr name="taskPriorityDefaultColor" format="reference"/>
+	<attr name="taskContextColor" format="reference"/>
+	<attr name="taskProjectColor" format="reference"/>
+	
 </resources>

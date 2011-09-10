@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/LoginScreen.java
  *
- * Copyright (c) 2009-2011 Hrayr Artunyan
+ * Copyright (c) 2009-2011 Hrayr Artunyan, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -31,7 +31,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -78,8 +77,6 @@ public class LoginScreen extends Activity {
 						final TextView providerDesc = (TextView) spinnerEntry.findViewById(R.id.remoteProviderDescription);
 						
 						final Client client = getItem(position);
-						
-						
 						
 						String lowerCaseName = client.name().toLowerCase();
 						providerName.setText(getResources().getIdentifier("@string/remote_provider_name_"+lowerCaseName, null, getPackageName()));

@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/Util.java
  *
- * Copyright (c) 2009-2011 mathias, Gina Trapani, Stephen Henderson, Tormod Haugen
+ * Copyright (c) 2009-2011 mathias, Gina Trapani, Stephen Henderson, Tormod Haugen, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -24,8 +24,9 @@
  * @author Gina Trapani <ginatrapani[at]gmail[dot]com>
  * @author Stephen Henderson <me[at]steveh[dot]ca>
  * @author Tormod Haugen <tormodh[at]gmail[dot]com>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2009-2011 mathias, Gina Trapani, Stephen Henderson, Tormod Haugen
+ * @copyright 2009-2011 mathias, Gina Trapani, Stephen Henderson, Tormod Haugen, Tomasz Roszko
  */
 package com.todotxt.todotxttouch.util;
 
@@ -49,7 +50,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.graphics.Color;
 import android.os.Environment;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -333,18 +333,18 @@ public class Util {
 		return adapter;
 	}
 
-	public static void setGray(SpannableString ss, List<String> items) {
+	public static void setColor(SpannableString ss, List<String> items, int color) {
 		String data = ss.toString();
 		for (String item : items) {
 			int i = data.indexOf("@" + item);
 			if (i != -1) {
-				ss.setSpan(new ForegroundColorSpan(Color.GRAY), i,
+				ss.setSpan(new ForegroundColorSpan(color), i,
 						i + 1 + item.length(),
 						Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			}
 			int j = data.indexOf("+" + item);
 			if (j != -1) {
-				ss.setSpan(new ForegroundColorSpan(Color.GRAY), j,
+				ss.setSpan(new ForegroundColorSpan(color), j,
 						j + 1 + item.length(),
 						Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 			}

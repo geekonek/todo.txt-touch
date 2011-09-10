@@ -4,7 +4,7 @@
 
 Todo.txt Touch/res/xml/preferences.xml
 
-Copyright (c) 2009-2011 Gina Trapani, mathias, Tormod Haugen
+Copyright (c) 2009-2011 Gina Trapani, mathias, Tormod Haugen, Tomasz Roszko
 
 LICENSE:
 
@@ -24,8 +24,9 @@ You should have received a copy of the GNU General Public License along with Tod
 @author Gina Trapani <ginatrapani[at]gmail[dot]com>
 @author mathias <mathias[at]x2[dot](none)>
 @author Tormod Haugen <tormodh[at]gmail[dot]com>
+@author Tomasz Roszko <geekonek[at]gmail[dot]com>
 @license http://www.gnu.org/licenses/gpl.html
-@copyright 2009-2011 Gina Trapani, mathias, Tormod Haugen
+@copyright 2009-2011 Gina Trapani, mathias, Tormod Haugen, Tomasz Roszko
  -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
@@ -41,6 +42,10 @@ You should have received a copy of the GNU General Public License along with Tod
 			android:title="@string/short_touch_pref_title" android:summary="@string/short_touch_pref_summary_on" />
 		<CheckBoxPreference android:key="@string/line_breaks_pref_key"
 			android:title="@string/line_breaks_pref_title" android:summary="@string/line_breaks_pref_summary" />
+		<ListPreference android:key="@string/theme_pref_key" android:summary="@string/theme_pref_summary"
+			android:title="@string/theme_pref_title" android:entries="@array/theme_list_entries"
+                        android:entryValues="@array/theme_list_values" android:defaultValue="white">
+		</ListPreference>
 	</PreferenceCategory>
 
 	<PreferenceCategory android:key="dropbox_settings"
