@@ -2,7 +2,7 @@
 
 <!--
 
-Todo.txt Touch/res/values/attrs.xml
+Todo.txt Touch/res/drawable/actionbar_background.xml
 
 Copyright (c) 2011 Tomasz Roszko
 
@@ -26,28 +26,7 @@ You should have received a copy of the GNU General Public License along with Tod
 @copyright 2011 Tomasz Roszko
  -->
 
-<resources>
-	<attr name="titleBar" format="reference"/>
-	<attr name="titleBarActionStyle" format="reference"/>
-	<attr name="titleBarSeparator" format="reference"/>
-	
-	<attr name="actionBar" format="reference"/>
-	<attr name="actionBarLabel" format="reference"/>
-	<attr name="actionBarDarkBackground" rformat="reference"/>
-	
-	<attr name="taskTextEdit" format="reference"/>
-	
-	
-	<attr name="taskId" format="reference"/>
-	
-	<!-- task list colors -->
-	<attr name="taskTextColor" format="reference"/>	
-	<attr name="taskPriorityAColor" format="reference"/>
-	<attr name="taskPriorityBColor" format="reference"/>
-	<attr name="taskPriorityCColor" format="reference"/>
-	<attr name="taskPriorityDColor" format="reference"/>
-	<attr name="taskPriorityDefaultColor" format="reference"/>
-	<attr name="taskContextColor" format="reference"/>
-	<attr name="taskProjectColor" format="reference"/>
-	
-</resources>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:shape="rectangle"> 
+   <solid android:color="#ff000000"/>
+</shape> 

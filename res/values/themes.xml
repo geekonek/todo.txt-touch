@@ -41,10 +41,15 @@ You should have received a copy of the GNU General Public License along with Tod
 		<item name="android:dividerHeight">1px</item>
 		<item name="android:cacheColorHint">#FFFFFF</item>
 		<item name="android:shadowColor">@color/black</item>
-		<item name="titleBar">@style/TitleBarWhite</item>
 		<item name="titleBarActionStyle">@style/TitleBarAction</item>
-		
+		<item name="titleBar">@style/TitleBarWhite</item>
 		<item name="titleBarSeparator">@style/TitleBarSeparator</item>
+		
+		<item name="actionBar">@style/ActionBar</item>
+		<item name="actionBarLabel">@color/actionbar_label</item>
+		<item name="actionBarDarkBackground">@drawable/actionbar_dark_background</item>
+		
+		<item name="taskTextEdit">@style/TaskTextEdit</item>
 		
 		<!-- Task list colors -->
 		<item name="taskTextColor">@color/black</item>
@@ -69,6 +74,12 @@ You should have received a copy of the GNU General Public License along with Tod
 		<item name="titleBarActionStyle">@style/TitleBarActionBlack</item>
 		<item name="taskId">@style/TaskIdStyle</item>
 		<item name="titleBarSeparator">@style/TitleBarSeparatorBlack</item>
+		
+		<item name="actionBar">@style/ActionBarBlack</item>
+		<item name="actionBarLabel">@color/actionbar_label_black</item>
+		<item name="actionBarDarkBackground">@drawable/actionbar_background_black</item>
+		
+		<item name="taskTextEdit">@style/TaskTextEditBlack</item>
 		
 		<!-- Task list colors -->
 		<item name="taskTextColor">@color/white</item>

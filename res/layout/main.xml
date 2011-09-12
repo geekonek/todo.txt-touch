@@ -49,7 +49,7 @@ You should have received a copy of the GNU General Public License along with Tod
 			android:onClick="onAddTaskClick" />
 	</LinearLayout>
 
-	<LinearLayout style="@style/ActionBar" android:id="@+id/actionbar"
+	<LinearLayout style="?actionBar" android:id="@+id/actionbar"
 		android:visibility="gone">
 
 		<ImageView android:id="@+id/actionbar_icon"
@@ -59,7 +59,7 @@ You should have received a copy of the GNU General Public License along with Tod
 
 		<TextView android:id="@+id/filter_text" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:layout_gravity="center_vertical"
-			android:textColor="@color/actionbar_label" />
+			android:textColor="?actionBarLabel" />
 		<View style="@style/TitleBarSpring" />
 
 		<LinearLayout style="@style/ActionBarButtonSet"

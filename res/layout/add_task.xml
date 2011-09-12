@@ -42,7 +42,7 @@ You should have received a copy of the GNU General Public License along with Tod
 			android:text="New Task" />
 	</LinearLayout>
 	
-	<LinearLayout style="@style/ActionBar"
+	<LinearLayout style="?actionBar"
 		android:id="@+id/subtitle_bar"
 		android:visibility="visible">
 		<LinearLayout style="@style/ActionBarButtonSet"
@@ -79,9 +79,9 @@ You should have received a copy of the GNU General Public License along with Tod
 		android:layout_alignParentTop="true" android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
-		android:background="@color/white"
+		style="?taskTextEdit"
 		android:padding="5dip" android:capitalize="sentences" />
-	
+		
 
 	<LinearLayout android:orientation="horizontal" 
 		android:layout_width="fill_parent"
@@ -104,7 +104,7 @@ You should have received a copy of the GNU General Public License along with Tod
 	<LinearLayout android:orientation="horizontal" 
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:background="@drawable/actionbar_dark_background"
+		android:background="?actionBarDarkBackground"
 		android:padding="3dip">
 		
 		<Button android:id="@+id/addTask" 
