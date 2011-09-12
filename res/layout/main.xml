@@ -37,14 +37,14 @@ You should have received a copy of the GNU General Public License along with Tod
 	<LinearLayout style="?titleBar" android:layout_width="fill_parent" android:layout_height="@dimen/title_height">
 		<ImageView style="@style/TitleBarLogo" android:src="@drawable/title_logo" />
 		<View style="@style/TitleBarSpring" />
-		<ImageView style="@style/TitleBarSeparator" />
+		<ImageView style="?titleBarSeparator" />
 
 		<ImageButton style="?titleBarActionStyle" android:id="@+id/btn_title_refresh"
 			android:src="@drawable/ic_title_sync" android:onClick="onSyncClick" />
 
 		<ProgressBar style="@style/TitleBarProgressIndicator"
 			android:id="@+id/title_refresh_progress" android:visibility="gone" />
-		<ImageView style="@style/TitleBarSeparator" />
+		<ImageView style="?titleBarSeparator" />
 		<ImageButton style="?titleBarActionStyle" android:src="@drawable/ic_title_add"
 			android:onClick="onAddTaskClick" />
 	</LinearLayout>

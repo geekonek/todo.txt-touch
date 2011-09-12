@@ -44,6 +44,7 @@ You should have received a copy of the GNU General Public License along with Tod
 		<item name="titleBar">@style/TitleBarWhite</item>
 		<item name="titleBarActionStyle">@style/TitleBarAction</item>
 		
+		<item name="titleBarSeparator">@style/TitleBarSeparator</item>
 		
 		<!-- Task list colors -->
 		<item name="taskTextColor">@color/black</item>
@@ -67,6 +68,7 @@ You should have received a copy of the GNU General Public License along with Tod
 		<item name="titleBar">@style/TitleBarBlack</item>
 		<item name="titleBarActionStyle">@style/TitleBarActionBlack</item>
 		<item name="taskId">@style/TaskIdStyle</item>
+		<item name="titleBarSeparator">@style/TitleBarSeparatorBlack</item>
 		
 		<!-- Task list colors -->
 		<item name="taskTextColor">@color/white</item>

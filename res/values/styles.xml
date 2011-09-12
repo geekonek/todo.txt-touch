@@ -45,6 +45,14 @@ You should have received a copy of the GNU General Public License along with Tod
         <item name="android:background">@drawable/title_button_black</item>
     </style>
     
+     <style name="TitleBarSeparatorBlack">
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_marginTop">0dip</item>
+        <item name="android:layout_marginBottom">0dip</item>
+        <item name="android:background">@drawable/title_bar_separator_black</item>
+    </style>
+    
 	<!-- Other stuff :) -->
 
     <style name="TitleBarWhite">
