@@ -45,6 +45,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -57,12 +58,14 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.todotxt.todotxttouch.R;
 import com.todotxt.todotxttouch.TodoException;
+import com.todotxt.todotxttouch.TodoTxtTouch;
 
 public class Util {
 
@@ -157,20 +160,40 @@ public class Util {
 		}
 	}
 
-	public static void showToastLong(Context cxt, int resid) {
-		Toast.makeText(cxt, resid, Toast.LENGTH_LONG).show();
+	private static Toast createToast(Context act, int resid, int length) {
+		View toastView = (TextView) LayoutInflater.from(act).inflate(R.layout.toast_layout, null); 
+		TextView text = (TextView) toastView.findViewById(R.id.toast_text);
+		text.setText(resid);
+		Toast toast = new Toast(act);
+		toast.setDuration(length);
+		toast.setView(text);
+		return toast;
+	}
+	
+	private static Toast createToast(Context act, String msg, int length) {
+		View toastView = (TextView) LayoutInflater.from(act).inflate(R.layout.toast_layout, null);
+		TextView text = (TextView) toastView.findViewById(R.id.toast_text);
+		text.setText(msg);
+		Toast toast = new Toast(act);
+		toast.setDuration(length);
+		toast.setView(text);
+		return toast;
 	}
 
+	public static void showToastLong(Context act, int resid){
+		createToast(act, resid, Toast.LENGTH_LONG).show();
+	}
+	
 	public static void showToastShort(Context cxt, int resid) {
-		Toast.makeText(cxt, resid, Toast.LENGTH_SHORT).show();
+		createToast(cxt, resid, Toast.LENGTH_SHORT).show();
 	}
 
 	public static void showToastLong(Context cxt, String msg) {
-		Toast.makeText(cxt, msg, Toast.LENGTH_LONG).show();
+		createToast(cxt, msg, Toast.LENGTH_LONG).show();
 	}
 
 	public static void showToastShort(Context cxt, String msg) {
-		Toast.makeText(cxt, msg, Toast.LENGTH_SHORT).show();
+		createToast(cxt, msg, Toast.LENGTH_SHORT).show();
 	}
 
 	public interface OnMultiChoiceDialogListener {

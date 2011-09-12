@@ -432,13 +432,13 @@ public class TodoTxtTouch extends BaseListActivity implements
 						TodoTxtTouch.currentActivityPointer
 								.dismissProgressDialog(true);
 						if (result) {
-							Util.showToastLong(TodoTxtTouch.this,
-									"Task marked as not completed");
+							Util.showToastLong(TodoTxtTouch.this, 
+									R.string.task_marked_not_completed);
 							sendBroadcast(new Intent(
 									Constants.INTENT_START_SYNC_TO_REMOTE));
 						} else {
 							Util.showToastLong(TodoTxtTouch.this,
-									"Could not mark task as not completed");
+									R.string.could_not_mark_not_complete);
 						}
 					}
 				}.execute(task);
@@ -477,14 +477,14 @@ public class TodoTxtTouch extends BaseListActivity implements
 					TodoTxtTouch.currentActivityPointer
 							.dismissProgressDialog(true);
 					if (result) {
-						Util.showToastLong(TodoTxtTouch.this, "Completed task "
-								+ task.inFileFormat());
+						Util.showToastLong(TodoTxtTouch.this, getResources().getString(R.string.task_marked_completed)
+								+ " " + task.inFileFormat());
 						sendBroadcast(new Intent(
 								Constants.INTENT_START_SYNC_TO_REMOTE));
 					} else {
 						Util.showToastLong(
 								TodoTxtTouch.this,
-								"Could not complete task "
+								getResources().getString(R.string.could_not_complete) +" "
 										+ task.inFileFormat());
 					}
 				}
