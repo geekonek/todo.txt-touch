@@ -51,6 +51,8 @@ You should have received a copy of the GNU General Public License along with Tod
 		
 		<item name="taskTextEdit">@style/TaskTextEdit</item>
 		
+		<item name="dialogStyle">@style/DialogStyleWhite</item>
+		
 		<!-- Task list colors -->
 		<item name="taskTextColor">@color/black</item>
 		<item name="taskPriorityAColor">@color/green</item>
@@ -80,6 +82,7 @@ You should have received a copy of the GNU General Public License along with Tod
 		<item name="actionBarDarkBackground">@drawable/actionbar_background_black</item>
 		
 		<item name="taskTextEdit">@style/TaskTextEditBlack</item>
+		<item name="dialogStyle">@style/DialogStyleBlack</item>
 		
 		<!-- Task list colors -->
 		<item name="taskTextColor">@color/white</item>

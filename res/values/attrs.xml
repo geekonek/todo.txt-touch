@@ -33,10 +33,10 @@ You should have received a copy of the GNU General Public License along with Tod
 	
 	<attr name="actionBar" format="reference"/>
 	<attr name="actionBarLabel" format="reference"/>
-	<attr name="actionBarDarkBackground" rformat="reference"/>
+	<attr name="actionBarDarkBackground" format="reference"/>
 	
 	<attr name="taskTextEdit" format="reference"/>
-	
+	<attr name="dialogStyle" flrmat="reference"/>
 	
 	<attr name="taskId" format="reference"/>
 	

@@ -71,7 +71,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -576,6 +578,7 @@ public class TodoTxtTouch extends BaseListActivity implements
 	}
 
 	private void startSortDialog() {
+		/*TODO: alert dialog theme support is not working in 1.6
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setSingleChoiceItems(R.array.sort, sort.getId(),
 				new OnClickListener() {
@@ -587,7 +590,30 @@ public class TodoTxtTouch extends BaseListActivity implements
 						setFilteredTasks(false);
 					}
 				});
-		builder.show();
+		builder.show();*/
+		
+		final Dialog dialog = new Dialog(this);
+		View view = getLayoutInflater().inflate(R.layout.sort_dialog, null);
+		ListView linearLayout = (ListView) view.findViewById(R.id.sort_dialog_container);
+		Button button = new Button(this);
+		button.setText("test");
+		linearLayout.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		linearLayout.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Log.v(TAG, "onClick " + arg2);
+				sort = Sort.getById(arg2);
+				setFilteredTasks(false);
+				dialog.dismiss();
+			}
+		});
+		
+		dialog.setContentView(view);
+		dialog.setTitle(R.string.sort);
+		dialog.show();
+		
 	}
 
 	private void startPreferencesActivity() {
