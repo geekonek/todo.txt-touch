@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/task/TaskBagImpl.java
  *
- * Copyright (c) 2011 Tim Barlotta
+ * Copyright (c) 2011 Tim Barlotta, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -21,11 +21,11 @@
  *
  * @author Tim Barlotta <tim[at]barlotta[dot]net>
  * @author Tormod Haugen
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @copyright 2011 Tim Barlotta
  */
 package com.todotxt.todotxttouch.task;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,13 +45,14 @@ import com.todotxt.todotxttouch.util.TaskIo;
  * Implementation of the TaskBag interface
  * 
  * @author Tim Barlotta
+ * @author Tomasz Roszko
  */
 class TaskBagImpl implements TaskBag {
 	private static final String TAG = TaskBagImpl.class.getSimpleName();
 	private Preferences preferences;
 	private final LocalTaskRepository localRepository;
 	private final RemoteClientManager remoteClientManager;
-	private ArrayList<Task> tasks = new ArrayList<Task>();
+	private List<Task> tasks = new ArrayList<Task>();
 
 	public TaskBagImpl(Preferences preferences,
 			LocalTaskRepository localRepository,
@@ -130,6 +131,7 @@ class TaskBagImpl implements TaskBag {
 				throw new TaskPersistException("Task not found, not updated");
 			}
 		} catch (Exception e) {
+			Log.e(TAG, "Exception while updating task "+task, e);
 			throw new TaskPersistException(
 					"An error occurred while updating Task {" + task + "}", e);
 		}
@@ -161,8 +163,13 @@ class TaskBagImpl implements TaskBag {
 	@Override
 	public void pushToRemote(boolean overridePreference) {
 		if (!this.preferences.isWorkOfflineEnabled() || overridePreference) {
-			remoteClientManager.getRemoteClient().pushTodo(
-					LocalFileTaskRepository.TODO_TXT_FILE);
+			try {
+				remoteClientManager.getRemoteClient().pushTodo(
+						TaskIo.loadTasksFromFile(LocalFileTaskRepository.TODO_TXT_FILE), preferences.isUseWindowsLineBreaksEnabled()); 
+				//TODO: find better way to pass preferences, this should be transparent (no file related stuff passing)
+			} catch (IOException e) {
+				Log.e(TAG, "Exception while parsing todo file", e); //TODO: externalize string, pass exception and handle in view where we can show toast
+			}
 		}
 	}
 
@@ -175,14 +182,9 @@ class TaskBagImpl implements TaskBag {
 	public void pullFromRemote(boolean overridePreference) {
 		try {
 			if (!this.preferences.isWorkOfflineEnabled() || overridePreference) {
-				File remoteFile = remoteClientManager.getRemoteClient()
-						.pullTodo();
-				if (remoteFile != null && remoteFile.exists()) {
-					ArrayList<Task> remoteTasks = TaskIo
-							.loadTasksFromFile(remoteFile);
-					localRepository.store(remoteTasks);
-					reload();
-				}
+				List<Task> remoteTasks = remoteClientManager.getRemoteClient().pullTodo();
+				localRepository.store(remoteTasks);
+				reload();
 			}
 		} catch (IOException e) {
 			throw new TaskPersistException(

@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/task/LocalFileTaskRepository.java
  *
- * Copyright (c) 2011 Tim Barlotta
+ * Copyright (c) 2011 Tim Barlotta, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -20,15 +20,16 @@
  * <http://www.gnu.org/licenses/>.
  *
  * @author Tim Barlotta <tim[at]barlotta[dot]net>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2011 Tim Barlotta
+ * @copyright 2011 Tim Barlotta, Tomasz Roszko
  */
 
 package com.todotxt.todotxttouch.task;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import android.os.Environment;
 import android.util.Log;
@@ -41,6 +42,7 @@ import com.todotxt.todotxttouch.util.Util;
  * A task repository for interacting with the local file system
  *
  * @author Tim Barlotta
+ * @author Tomasz Roszko
  */
 class LocalFileTaskRepository implements LocalTaskRepository {
 	private static final String TAG = LocalFileTaskRepository.class
@@ -72,7 +74,7 @@ class LocalFileTaskRepository implements LocalTaskRepository {
 	}
 
 	@Override
-	public ArrayList<Task> load() {
+	public List<Task> load() {
 		init();
 		if (!TODO_TXT_FILE.exists()) {
 			Log.w(TAG, TODO_TXT_FILE.getAbsolutePath() + " does not exist!");
@@ -88,7 +90,7 @@ class LocalFileTaskRepository implements LocalTaskRepository {
 	}
 
 	@Override
-	public void store(ArrayList<Task> tasks) {
+	public void store(List<Task> tasks) {
 		TaskIo.writeToFile(tasks, TODO_TXT_FILE,
 				preferences.isUseWindowsLineBreaksEnabled());
 	}

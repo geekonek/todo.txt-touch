@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/TodoApplication.java
  *
- * Copyright (c) 2009-2011 mathias, Gina Trapani, Tormod Haugen
+ * Copyright (c) 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -23,8 +23,9 @@
  * @author Tormod Haugen <tormodh[at]gmail[dot]com>
  * @author mathias <mathias[at]ws7862[dot](none)>
  * @author mathias <mathias[at]x2[dot](none)>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2009-2011 mathias, Gina Trapani, Tormod Haugen
+ * @copyright 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tomasz Roszko
  */
 package com.todotxt.todotxttouch;
 
@@ -60,6 +61,7 @@ public class TodoApplication extends Application {
 		m_prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		remoteClientManager = new RemoteClientManager(this, m_prefs);
 		this.taskBag = TaskBagFactory.getTaskBag(this, m_prefs);
+		remoteClientManager.init();
 
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(Constants.INTENT_GO_OFFLINE);
@@ -163,7 +165,7 @@ public class TodoApplication extends Application {
 						Log.d(TAG, "start taskBag.pushToRemote");
 						taskBag.pushToRemote(true);
 					} catch (Exception e) {
-						Log.e(TAG, e.getMessage());
+						Log.e(TAG, "Exception on doInBackground", e);
 						return false;
 					}
 					return true;
@@ -206,7 +208,7 @@ public class TodoApplication extends Application {
 						Log.d(TAG, "start taskBag.pullFromRemote");
 						taskBag.pullFromRemote(true);
 					} catch (Exception e) {
-						Log.e(TAG, e.getMessage());
+						Log.e(TAG, "Exception in doInBackground", e);
 						return false;
 					}
 					return true;

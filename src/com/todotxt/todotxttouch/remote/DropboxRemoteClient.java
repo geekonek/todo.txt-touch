@@ -30,17 +30,21 @@ package com.todotxt.todotxttouch.remote;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Environment;
+import android.util.Log;
 
 import com.dropbox.client.DropboxAPI;
 import com.dropbox.client.DropboxAPI.Config;
 import com.todotxt.todotxttouch.Constants;
 import com.todotxt.todotxttouch.R;
 import com.todotxt.todotxttouch.TodoApplication;
+import com.todotxt.todotxttouch.task.Task;
+import com.todotxt.todotxttouch.util.TaskIo;
 import com.todotxt.todotxttouch.util.Util;
 
 class DropboxRemoteClient implements RemoteClient {
@@ -48,6 +52,7 @@ class DropboxRemoteClient implements RemoteClient {
 	private static final File TODO_TXT_TMP_FILE = new File(
 			Environment.getExternalStorageDirectory(),
 			"data/com.todotxt.todotxttouch/tmp/todo.txt");
+	private static final String TAG = DropboxRemoteClient.class.getName();
 
 	private DropboxAPI dropboxApi = new DropboxAPI();
 	private TodoApplication todoApplication;
@@ -142,8 +147,9 @@ class DropboxRemoteClient implements RemoteClient {
 		return new DropboxLoginAsyncTask(this);
 	}
 
+	//TODO: fix exception handling
 	@Override
-	public File pullTodo() {
+	public List<Task> pullTodo() {
 		if (!isAvailable()) {
 			Intent i = new Intent(Constants.INTENT_GO_OFFLINE);
 			sendBroadcast(i);
@@ -155,8 +161,12 @@ class DropboxRemoteClient implements RemoteClient {
 			throw new RemoteException("Cannot get file from Dropbox");
 		} else if (fileDownload.isError()) {
 			if (404 == fileDownload.httpCode) {
-				pushTodo(TODO_TXT_TMP_FILE);
-				return TODO_TXT_TMP_FILE;
+				pushTodoFile(TODO_TXT_TMP_FILE);
+				try {
+					return TaskIo.loadTasksFromFile(TODO_TXT_TMP_FILE);
+				} catch (IOException e) {
+					Log.e(TAG,"Exception while parsing file", e);//TODO: externalize string
+				}
 			} else {
 				throw new DropboxFileRemoteException(
 						"Error loading from dropbox", fileDownload);
@@ -173,14 +183,19 @@ class DropboxRemoteClient implements RemoteClient {
 
 		try {
 			Util.writeFile(fileDownload.is, TODO_TXT_TMP_FILE);
-			return TODO_TXT_TMP_FILE;
+			return TaskIo.loadTasksFromFile(TODO_TXT_TMP_FILE);
 		} catch (IOException e) {
 			throw new RemoteException("Error writing to tmp file", e);
 		}
 	}
 
 	@Override
-	public void pushTodo(File file) {
+	public void pushTodo(List<Task> tasks, boolean useWindowsLineBreaks) {
+		TaskIo.writeToFile(tasks, TODO_TXT_TMP_FILE, useWindowsLineBreaks);
+		pushTodoFile(TODO_TXT_TMP_FILE);
+	}
+	
+	public void pushTodoFile(File file) {
 		try {
 			if (!file.exists()) {
 				Util.createParentDirectory(file);

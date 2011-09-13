@@ -34,5 +34,6 @@ package com.todotxt.todotxttouch.remote;
  */
 public enum Client {
 	DROPBOX, 
-	LOCAL;
+	LOCAL,
+	GTASKS;
 }

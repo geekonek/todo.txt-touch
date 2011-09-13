@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/remote/RemoteClientManager.java
  *
- * Copyright (c) 2011 Tim Barlotta
+ * Copyright (c) 2011 Tim Barlotta, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -32,6 +32,7 @@ import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
 import com.todotxt.todotxttouch.TodoApplication;
+import com.todotxt.todotxttouch.remote.gtasks.GoogleTasksRemoteClient;
 import com.todotxt.todotxttouch.remote.local.LocalRemoteClient;
 
 /**
@@ -53,13 +54,14 @@ public class RemoteClientManager implements SharedPreferences.OnSharedPreference
 		this.todoApplication = todoApplication;
 		this.sharedPreferences = sharedPreferences;
 		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
-		
-		//calculate current client from shared properties
-		calculateRemoteClient(sharedPreferences);
-		
-		currentClient.authenticate();
 	}
 
+	public void init(){
+		//calculate current client from shared properties
+		calculateRemoteClient(sharedPreferences);
+		currentClient.authenticate();
+	}
+	
 	public RemoteClient getRemoteClient() {
 		return currentClient;
 	}
@@ -78,10 +80,10 @@ public class RemoteClientManager implements SharedPreferences.OnSharedPreference
 		switch (clientToken){
 			case DROPBOX: return new DropboxRemoteClient(todoApplication, sharedPreferences);
 			case LOCAL: return new LocalRemoteClient(todoApplication, sharedPreferences); /* awesome name :) LocalRemoteClient*/
+			case GTASKS: return new GoogleTasksRemoteClient(todoApplication, sharedPreferences, todoApplication.getTaskBag());
 			default:
 				throw new IllegalArgumentException("Unsuported remote client. "+clientToken);
 		}
-		
 	}
 
 	/**

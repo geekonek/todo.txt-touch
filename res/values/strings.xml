@@ -172,6 +172,10 @@ You should have received a copy of the GNU General Public License along with Tod
 	<string name="remote_provider_desc_local">Provides local storage only, no synchronization.</string>
 	<string name="remote_provider_name_dropbox">Dropbox</string>
 	<string name="remote_provider_desc_dropbox">Stores your todo.txt file on Dropbox.</string>
+	<string name="remote_provider_name_gtasks">Google Tasks sync</string>
+	<string name="remote_provider_desc_gtasks">Stores todos in Google Tasks.</string>
+
+
 
 	<string name="theme_pref_summary">Application theme</string>
 	<string name="theme_pref_title">Theme</string>

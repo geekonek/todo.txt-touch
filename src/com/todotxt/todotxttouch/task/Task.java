@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/task/Task.java
  *
- * Copyright (c) 2009-2011 mathias, Gina Trapani, Tim Barlotta, Florian Behr
+ * Copyright (c) 2009-2011 mathias, Gina Trapani, Tim Barlotta, Florian Behr, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -23,8 +23,9 @@
  * @author Gina Trapani <ginatrapani[at]gmail[dot]com>
  * @author Tim Barlotta <tim[at]barlotta[dot]net>
  * @author Florian Behr <mail[at]florianbehr[dot]de>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2009-2011 mathias, Gina Trapani, Tim Barlotta, Florian Behr
+ * @copyright 2009-2011 mathias, Gina Trapani, Tim Barlotta, Florian Behr, Tomasz Roszko
  */
 package com.todotxt.todotxttouch.task;
 
@@ -35,13 +36,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import android.util.Log;
+
 import com.todotxt.todotxttouch.util.RelativeDate;
 import com.todotxt.todotxttouch.util.Strings;
+import com.todotxt.todotxttouch.util.TaskMetadata;
 
 @SuppressWarnings("serial")
 public class Task implements Serializable {
 	private static final String COMPLETED = "x ";
-	private static final String DATE_FORMAT = "yyyy-MM-dd";
+	public static final String DATE_FORMAT = "yyyy-MM-dd";
 	private final String originalText;
 	private final Priority originalPriority;
 
@@ -57,6 +61,9 @@ public class Task implements Serializable {
 	private List<String> projects;
 	private List<URL> links;
 
+	private String externalId;
+	private Long modDate;
+	
 	public Task(long id, String rawText, Date defaultPrependedDate) {
 		this.id = id;
 		this.init(rawText, defaultPrependedDate);
@@ -70,6 +77,8 @@ public class Task implements Serializable {
 
 	public void update(String rawText) {
 		this.init(rawText, null);
+		this.setModDate(System.currentTimeMillis());
+		Log.d(this.getClass().getName(), "Updated task mod time to: "+this.modDate);
 	}
 
 	private void init(String rawText, Date defaultPrependedDate) {
@@ -101,6 +110,18 @@ public class Task implements Serializable {
 				// e.printStackTrace();
 			}
 		}
+		
+		//text can contain external id, check 
+		this.externalId = splitResult.externalId;
+		//and mod date
+		if (splitResult.modDate != null){
+			try {
+				this.modDate = TaskMetadata.getModDate(splitResult.modDate);
+			} catch (ParseException e) {
+				Log.d(this.getClass().getName(), "Exception while parsing mod date", e);
+			}
+		}
+		
 	}
 
 	public Priority getOriginalPriority() {
@@ -143,6 +164,10 @@ public class Task implements Serializable {
 		return prependedDate;
 	}
 
+	public void setPrependedDate(String prependedDate) {
+		this.prependedDate = prependedDate;
+	}
+	
 	public String getRelativeAge() {
 		return relativeAge;
 	}
@@ -154,11 +179,35 @@ public class Task implements Serializable {
 	public boolean isCompleted() {
 		return completed;
 	}
+	
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
+	}
 
 	public String getCompletionDate() {
 		return completionDate;
 	}
 
+	public void setCompletionDate(String completionDate) {
+		this.completionDate = completionDate;
+	}
+	
+	public String getExternalId() {
+		return externalId;
+	}
+	
+	public void setExternalId(String externalId) {
+		this.externalId = externalId;
+	}
+	
+	public Long getModDate() {
+		return modDate;
+	}
+	
+	public void setModDate(Long modDate) {
+		this.modDate = modDate;
+	}
+	
 	public void markComplete(Date date) {
 		if (!this.completed) {
 			this.priority = Priority.NONE;
@@ -209,6 +258,9 @@ public class Task implements Serializable {
 			}
 		}
 		sb.append(this.text);
+		
+		sb.append( new TaskMetadata(externalId, modDate).getMetaInFileFormat());
+		
 		return sb.toString();
 	}
 
@@ -295,4 +347,17 @@ public class Task implements Serializable {
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		return "Task [originalText=" + originalText + ", originalPriority="
+				+ originalPriority + ", id=" + id + ", priority=" + priority
+				+ ", deleted=" + deleted + ", completed=" + completed
+				+ ", text=" + text + ", completionDate=" + completionDate
+				+ ", prependedDate=" + prependedDate + ", relativeAge="
+				+ relativeAge + ", contexts=" + contexts + ", projects="
+				+ projects + ", links=" + links + ", externalId=" + externalId
+				+ ", modDate=" + modDate + "]";
+	}
+	
 }

@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/task/TextSplitter.java
  *
- * Copyright (c) 2009-2011 mathias, Gina Trapani, Tim Barlotta
+ * Copyright (c) 2009-2011 mathias, Gina Trapani, Tim Barlotta, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -26,13 +26,16 @@
  * @author mathias <mathias[at]x2[dot](none)>
  * @author Gina Trapani <ginatrapani[at]gmail[dot]com>
  * @author Tim Barlotta <tim[at]barlotta[dot]net>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2009-2011 mathias, Gina Trapani, Tim Barlotta
+ * @copyright 2009-2011 mathias, Gina Trapani, Tim Barlotta, Tomasz Roszko
  */
 package com.todotxt.todotxttouch.task;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.todotxt.todotxttouch.util.TaskMetadata;
 
 class TextSplitter {
 	private final static Pattern COMPLETED_PATTERN = Pattern
@@ -43,7 +46,7 @@ class TextSplitter {
 
 	private final static Pattern SINGLE_DATE_PATTERN = Pattern
 			.compile("^(\\d{4}-\\d{2}-\\d{2}) (.*)");
-
+	
 	private final static TextSplitter INSTANCE = new TextSplitter();
 
 	private TextSplitter() {
@@ -59,20 +62,24 @@ class TextSplitter {
 		public final String prependedDate;
 		public final boolean completed;
 		public final String completedDate;
+		public final String externalId;
+		public final String modDate;
 
 		private SplitResult(Priority priority, String text,
-				String prependedDate, boolean completed, String completedDate) {
+				String prependedDate, boolean completed, String completedDate, String externalId, String modDate) {
 			this.priority = priority;
 			this.text = text;
 			this.prependedDate = prependedDate;
 			this.completed = completed;
 			this.completedDate = completedDate;
+			this.externalId = externalId;
+			this.modDate = modDate;
 		}
 	}
 
 	public SplitResult split(String inputText) {
 		if (inputText == null) {
-			return new SplitResult(Priority.NONE, "", "", false, "");
+			return new SplitResult(Priority.NONE, "", "", false, "", null, null);
 		}
 
 		Matcher completedMatcher = COMPLETED_PATTERN.matcher(inputText);
@@ -119,7 +126,10 @@ class TextSplitter {
 			}
 		}
 
-		return new SplitResult(priority, text, prependedDate, completed,
-				completedDate);
+		
+		TaskMetadata meta = new TaskMetadata(text);
+		
+		return new SplitResult(priority, meta.getStrippedText(), prependedDate, completed,
+				completedDate, meta.getExternalId(), meta.getModDate());
 	}
 }

@@ -25,7 +25,7 @@
  */
 package com.todotxt.todotxttouch.remote.local;
 
-import java.io.File;
+import java.util.List;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,6 +35,7 @@ import com.todotxt.todotxttouch.TodoApplication;
 import com.todotxt.todotxttouch.remote.Client;
 import com.todotxt.todotxttouch.remote.RemoteClient;
 import com.todotxt.todotxttouch.remote.RemoteLoginTask;
+import com.todotxt.todotxttouch.task.Task;
 
 public class LocalRemoteClient implements RemoteClient {
 
@@ -88,13 +89,13 @@ public class LocalRemoteClient implements RemoteClient {
 	}
 
 	@Override
-	public File pullTodo() {
+	public List<Task> pullTodo() {
 		// noop
 		return null;
 	}
 
 	@Override
-	public void pushTodo(File file) {
+	public void pushTodo(List<Task> file, boolean notUsedMegaPowerfullBoleanValue) {
 		// noop
 	}
 

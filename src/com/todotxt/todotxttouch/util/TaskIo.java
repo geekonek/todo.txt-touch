@@ -1,8 +1,8 @@
 /**
  *
- * Todo.txt Touch/src/com/todotxt/todotxttouch/task/TaskIo.java
+ * Todo.txt Touch/src/com/todotxt/todotxttouch/util/TaskIo.java
  *
- * Copyright (c) 2011 Tim Barlotta
+ * Copyright (c) 2011 Tim Barlotta, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -20,8 +20,9 @@
  * <http://www.gnu.org/licenses/>.
  *
  * @author Tim Barlotta <tim[at]barlotta[dot]net>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2011 Tim Barlotta
+ * @copyright 2011 Tim Barlotta, Tomasz Roszko
  */
 
 package com.todotxt.todotxttouch.util;
@@ -44,6 +45,7 @@ import com.todotxt.todotxttouch.task.Task;
  * A utility class for performing Task level I/O
  * 
  * @author Tim Barlotta
+ * @author Tomasz Roszko
  */
 public class TaskIo {
 	private final static String TAG = TaskIo.class.getSimpleName();
@@ -118,7 +120,7 @@ public class TaskIo {
 			}
 			fw.close();
 		} catch (Exception e) {
-			Log.e(TAG, e.getMessage());
+			Log.e(TAG, "Exception in writeToFile", e);
 		}
 	}
 }
