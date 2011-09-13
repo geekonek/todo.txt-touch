@@ -161,7 +161,7 @@ public class Util {
 	}
 
 	private static Toast createToast(Context act, int resid, int length) {
-		View toastView = (TextView) LayoutInflater.from(act).inflate(R.layout.toast_layout, null); 
+		View toastView = LayoutInflater.from(act).inflate(R.layout.toast_layout, null); 
 		TextView text = (TextView) toastView.findViewById(R.id.toast_text);
 		text.setText(resid);
 		Toast toast = new Toast(act);
@@ -171,7 +171,7 @@ public class Util {
 	}
 	
 	private static Toast createToast(Context act, String msg, int length) {
-		View toastView = (TextView) LayoutInflater.from(act).inflate(R.layout.toast_layout, null);
+		View toastView = LayoutInflater.from(act).inflate(R.layout.toast_layout, null);
 		TextView text = (TextView) toastView.findViewById(R.id.toast_text);
 		text.setText(msg);
 		Toast toast = new Toast(act);
