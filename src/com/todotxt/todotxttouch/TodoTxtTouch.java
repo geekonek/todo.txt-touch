@@ -377,6 +377,7 @@ public class TodoTxtTouch extends BaseListActivity implements
 							task.setPriority(Priority
 									.toPriority(prioArr[which]));
 							taskBag.update(task);
+							m_app.broadcastWidgetUpdate();
 							return true;
 						} catch (Exception e) {
 							Log.e(TAG, e.getMessage(), e);
@@ -515,6 +516,7 @@ public class TodoTxtTouch extends BaseListActivity implements
 					protected Boolean doInBackground(Object... params) {
 						try {
 							taskBag.delete((Task) params[0]);
+							m_app.broadcastWidgetUpdate();
 							return true;
 						} catch (Exception e) {
 							Log.e(TAG, e.getMessage(), e);
