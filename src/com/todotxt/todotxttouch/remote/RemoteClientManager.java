@@ -95,12 +95,18 @@ public class RemoteClientManager implements SharedPreferences.OnSharedPreference
 	}
 
 	private void calculateRemoteClient(SharedPreferences sharedPreferences) {
-
-		//initialize selected client (defaults to local for first time access, will still be redirected
-		//to login screen)
-		currentClientToken = Client.valueOf(
-				sharedPreferences.getString(CURRENT_CLIENT_KEY, Client.LOCAL.name()));
-		currentClient = getRemoteClient(currentClientToken);
+		
+		//initialize selected client 
+		try {
+			currentClientToken = Client.valueOf(
+					sharedPreferences.getString(CURRENT_CLIENT_KEY, Client.LOCAL.name()));
+			currentClient = getRemoteClient(currentClientToken);
+		} catch (IllegalArgumentException e){
+			//in case we changed version and dropped current support
+			Log.d(TAG, "Current remote client not supported anymore!");
+			currentClient = getRemoteClient(Client.LOCAL);
+		}
+		
 		
 	}
 
