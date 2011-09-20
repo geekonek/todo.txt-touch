@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/task/TaskBagImpl.java
  *
- * Copyright (c) 2011 Tim Barlotta
+ * Copyright (c) 2011 Tim Barlotta, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -20,12 +20,12 @@
  * <http://www.gnu.org/licenses/>.
  *
  * @author Tim Barlotta <tim[at]barlotta[dot]net>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @author Tormod Haugen
- * @copyright 2011 Tim Barlotta
+ * @copyright 2011 Tim Barlotta, Tomasz Roszko
  */
 package com.todotxt.todotxttouch.task;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,7 +39,6 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.todotxt.todotxttouch.remote.RemoteClientManager;
-import com.todotxt.todotxttouch.util.TaskIo;
 
 /**
  * Implementation of the TaskBag interface
@@ -51,7 +50,7 @@ class TaskBagImpl implements TaskBag {
 	private Preferences preferences;
 	private final LocalTaskRepository localRepository;
 	private final RemoteClientManager remoteClientManager;
-	private ArrayList<Task> tasks = new ArrayList<Task>();
+	private List<Task> tasks = new ArrayList<Task>();
 
 	public TaskBagImpl(Preferences preferences,
 			LocalTaskRepository localRepository,
@@ -161,8 +160,7 @@ class TaskBagImpl implements TaskBag {
 	@Override
 	public void pushToRemote(boolean overridePreference) {
 		if (!this.preferences.isWorkOfflineEnabled() || overridePreference) {
-			remoteClientManager.getRemoteClient().pushTodo(
-					LocalFileTaskRepository.TODO_TXT_FILE);
+			remoteClientManager.getRemoteClient().pushTodo(tasks);
 		}
 	}
 
@@ -175,11 +173,8 @@ class TaskBagImpl implements TaskBag {
 	public void pullFromRemote(boolean overridePreference) {
 		try {
 			if (!this.preferences.isWorkOfflineEnabled() || overridePreference) {
-				File remoteFile = remoteClientManager.getRemoteClient()
-						.pullTodo();
-				if (remoteFile != null && remoteFile.exists()) {
-					ArrayList<Task> remoteTasks = TaskIo
-							.loadTasksFromFile(remoteFile);
+				List<Task> remoteTasks = remoteClientManager.getRemoteClient().pullTodo();
+				if (remoteTasks != null) {
 					localRepository.store(remoteTasks);
 					reload();
 				}

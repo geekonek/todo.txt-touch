@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/task/LocalTaskRepository.java
  *
- * Copyright (c) 2011 Tim Barlotta
+ * Copyright (c) 2011 Tim Barlotta, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -20,25 +20,27 @@
  * <http://www.gnu.org/licenses/>.
  *
  * @author Tim Barlotta <tim[at]barlotta[dot]net>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2011 Tim Barlotta
+ * @copyright 2011 Tim Barlotta, Tomasz Roszko
  */
 
 package com.todotxt.todotxttouch.task;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A repository for tasks working at the local data store level
  * 
  * @author Tim Barlotta
+ * @author Tomasz Roszko
  */
 interface LocalTaskRepository {
 	void init();
 
 	void purge();
 
-	ArrayList<Task> load();
+	List<Task> load();
 
-	void store(ArrayList<Task> tasks);
+	void store(List<Task> tasks);
 }

@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/remote/DropboxSyncClient.java
  *
- * Copyright (c) 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tim Barlotta
+ * Copyright (c) 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tim Barlotta, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -23,8 +23,9 @@
  * @author Tormod Haugen <tormodh[at]gmail[dot]com>
  * @author mathias <mathias[at]x2[dot](none)>
  * @author Tim Barlotta <tim[at]barlotta[dot]net>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tim Barlotta
+ * @copyright 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tim Barlotta, Tomasz Roszko
  */
 package com.todotxt.todotxttouch.remote;
 
@@ -43,7 +44,7 @@ import com.todotxt.todotxttouch.R;
 import com.todotxt.todotxttouch.TodoApplication;
 import com.todotxt.todotxttouch.util.Util;
 
-class DropboxRemoteClient implements RemoteClient {
+class DropboxRemoteClient extends FileBasedRemoteClient {
 	private static final String TODO_TXT_REMOTE_FILE_NAME = "todo.txt";
 	private static final File TODO_TXT_TMP_FILE = new File(
 			Environment.getExternalStorageDirectory(),
@@ -56,6 +57,7 @@ class DropboxRemoteClient implements RemoteClient {
 
 	public DropboxRemoteClient(TodoApplication todoApplication,
 			SharedPreferences sharedPreferences) {
+		super(sharedPreferences);
 		this.todoApplication = todoApplication;
 		this.sharedPreferences = sharedPreferences;
 	}
@@ -143,7 +145,7 @@ class DropboxRemoteClient implements RemoteClient {
 	}
 
 	@Override
-	public File pullTodo() {
+	public File pullTodoFile() {
 		if (!isAvailable()) {
 			Intent i = new Intent(Constants.INTENT_GO_OFFLINE);
 			sendBroadcast(i);
@@ -155,7 +157,7 @@ class DropboxRemoteClient implements RemoteClient {
 			throw new RemoteException("Cannot get file from Dropbox");
 		} else if (fileDownload.isError()) {
 			if (404 == fileDownload.httpCode) {
-				pushTodo(TODO_TXT_TMP_FILE);
+				pushTodoFile(TODO_TXT_TMP_FILE);
 				return TODO_TXT_TMP_FILE;
 			} else {
 				throw new DropboxFileRemoteException(
@@ -180,7 +182,7 @@ class DropboxRemoteClient implements RemoteClient {
 	}
 
 	@Override
-	public void pushTodo(File file) {
+	public void pushTodoFile(File file) {
 		try {
 			if (!file.exists()) {
 				Util.createParentDirectory(file);

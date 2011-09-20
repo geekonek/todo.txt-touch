@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/remote/RemoteClient.java
  *
- * Copyright (c) 2011 Tormod Haugen
+ * Copyright (c) 2011 Tormod Haugen, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -20,12 +20,16 @@
  * <http://www.gnu.org/licenses/>.
  *
  * @author Tormod Haugen <tormodh[at]gmail[dot]com>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2011 Tormod Haugen
+ * @copyright 2011 Tormod Haugen, Tomasz Roszko
  */
 package com.todotxt.todotxttouch.remote;
 
-import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import com.todotxt.todotxttouch.task.Task;
 
 public interface RemoteClient {
 
@@ -68,18 +72,19 @@ public interface RemoteClient {
 	RemoteLoginTask getLoginTask();
 
 	/**
-	 * Pull the remote Todo.txt file
+	 * Pull the remote task list
 	 * 
 	 * @return
+	 * @throws IOException 
 	 */
-	File pullTodo();
+	List<Task> pullTodo() throws IOException;
 
 	/**
 	 * Push mobile
 	 * 
-	 * @param file
+	 * @param tasks
 	 */
-	void pushTodo(File file);
+	void pushTodo(List<Task> tasks);
 
 	/**
 	 * A method to check if the remote service is available (network, sd-card,
