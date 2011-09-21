@@ -63,6 +63,7 @@ public abstract class FileBasedRemoteClient implements RemoteClient{
 				"data/com.todotxt.todotxttouch/tmp/file_provider_todo.txt");
 		TaskIo.writeToFile(tasks, tmpFile, isUseWindowsLineBreaks());
 		pushTodoFile(tmpFile);
+		tmpFile.delete();
 	}
 	
 	
