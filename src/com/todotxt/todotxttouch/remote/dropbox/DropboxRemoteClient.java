@@ -27,7 +27,7 @@
  * @license http://www.gnu.org/licenses/gpl.html
  * @copyright 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tim Barlotta, Tomasz Roszko
  */
-package com.todotxt.todotxttouch.remote;
+package com.todotxt.todotxttouch.remote.dropbox;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,9 +42,13 @@ import com.dropbox.client.DropboxAPI.Config;
 import com.todotxt.todotxttouch.Constants;
 import com.todotxt.todotxttouch.R;
 import com.todotxt.todotxttouch.TodoApplication;
+import com.todotxt.todotxttouch.remote.Client;
+import com.todotxt.todotxttouch.remote.FileBasedRemoteClient;
+import com.todotxt.todotxttouch.remote.RemoteException;
+import com.todotxt.todotxttouch.remote.RemoteLoginTask;
 import com.todotxt.todotxttouch.util.Util;
 
-class DropboxRemoteClient extends FileBasedRemoteClient {
+public class DropboxRemoteClient extends FileBasedRemoteClient {
 	private static final String TODO_TXT_REMOTE_FILE_NAME = "todo.txt";
 	private static final File TODO_TXT_TMP_FILE = new File(
 			Environment.getExternalStorageDirectory(),

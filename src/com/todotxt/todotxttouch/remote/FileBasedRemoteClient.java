@@ -60,7 +60,7 @@ public abstract class FileBasedRemoteClient implements RemoteClient{
 	@Override
 	public final void pushTodo(List<Task> tasks) {
 		File tmpFile = new File( Environment.getExternalStorageDirectory(), 
-				"data/com.todotxt.todotxttouch/tmp/file_provider_todo.txt");
+				"data/com.todotxt.todotxttouch/tmp/todo.txt");
 		TaskIo.writeToFile(tasks, tmpFile, isUseWindowsLineBreaks());
 		pushTodoFile(tmpFile);
 		tmpFile.delete();

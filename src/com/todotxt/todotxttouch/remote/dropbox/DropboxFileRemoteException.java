@@ -24,9 +24,10 @@
  * @copyright 2011 Tim Barlotta
  */
 
-package com.todotxt.todotxttouch.remote;
+package com.todotxt.todotxttouch.remote.dropbox;
 
 import com.dropbox.client.DropboxAPI;
+import com.todotxt.todotxttouch.remote.RemoteException;
 
 /**
  * Represents an error that occurred during Dropbox persistence

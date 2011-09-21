@@ -23,7 +23,7 @@
  * @license http://www.gnu.org/licenses/gpl.html
  * @copyright 2009-2011 Tormod Haugen
  */
-package com.todotxt.todotxttouch.remote;
+package com.todotxt.todotxttouch.remote.dropbox;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -41,6 +41,7 @@ import android.widget.TextView;
 import com.dropbox.client.DropboxAPI;
 import com.dropbox.client.DropboxAPI.Config;
 import com.todotxt.todotxttouch.R;
+import com.todotxt.todotxttouch.remote.RemoteLoginTask;
 
 class DropboxLoginAsyncTask extends AsyncTask<Void, Void, Integer> implements
 		RemoteLoginTask {

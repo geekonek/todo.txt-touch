@@ -29,6 +29,7 @@ package com.todotxt.todotxttouch.remote;
 import android.content.SharedPreferences;
 
 import com.todotxt.todotxttouch.TodoApplication;
+import com.todotxt.todotxttouch.remote.dropbox.DropboxRemoteClient;
 
 /**
  * Manager for obtaining, switching, etc. remote clients
