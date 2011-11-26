@@ -2,7 +2,7 @@
  *
  * Todo.txt Touch/src/com/todotxt/todotxttouch/TodoApplication.java
  *
- * Copyright (c) 2009-2011 mathias, Gina Trapani, Tormod Haugen
+ * Copyright (c) 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tomasz Roszko
  *
  * LICENSE:
  *
@@ -23,8 +23,9 @@
  * @author Tormod Haugen <tormodh[at]gmail[dot]com>
  * @author mathias <mathias[at]ws7862[dot](none)>
  * @author mathias <mathias[at]x2[dot](none)>
+ * @author Tomasz Roszko <geekonek[at]gmail[dot]com>
  * @license http://www.gnu.org/licenses/gpl.html
- * @copyright 2009-2011 mathias, Gina Trapani, Tormod Haugen
+ * @copyright 2009-2011 mathias, Gina Trapani, Tormod Haugen, Tomasz Roszko
  */
 package com.todotxt.todotxttouch;
 
@@ -71,6 +72,10 @@ public class TodoApplication extends Application {
 			m_broadcastReceiver = new BroadcastReceiverExtension();
 			registerReceiver(m_broadcastReceiver, intentFilter);
 		}
+
+		// initialize tasks so widget gets tasks after application redeployment
+		taskBag.reload();
+		Log.d("\n\n\n TODO APPLICATION1\n\n\n", taskBag.toString());
 
 	}
 
@@ -262,6 +267,12 @@ public class TodoApplication extends Application {
 
 			}
 		}
+	}
+
+	public void broadcastWidgetUpdate() {
+		Log.d(TAG, "Broadcasting widget update intent");
+		Intent intent = new Intent(Constants.INTENT_WIDGET_UPDATE);
+		sendBroadcast(intent);
 	}
 
 }
