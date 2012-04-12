@@ -55,7 +55,7 @@ public class Preferences extends PreferenceActivity {
 			packageInfo = getPackageManager().getPackageInfo(getPackageName(),
 					0);
 			Preference versionPref = (Preference) findPreference("app_version");
-			versionPref.setSummary("v" + packageInfo.versionName);
+			versionPref.setSummary("v" + packageInfo.versionName + " gFork");
 			version = packageInfo.versionName;
 
 		} catch (NameNotFoundException e) {
@@ -86,7 +86,7 @@ public class Preferences extends PreferenceActivity {
 			AlertDialog.Builder aboutAlert = new AlertDialog.Builder(this);
 			aboutAlert.setTitle("Todo.txt Touch v" + version);
 			aboutAlert
-					.setMessage("by Gina Trapani &\nthe Todo.txt community\n\nhttp://todotxt.com");
+					.setMessage("by Gina Trapani &\nthe Todo.txt community\n\nhttp://todotxt.com\n\nFeature fork by geekonek[at]gmail[dot]com");
 			aboutAlert.setIcon(R.drawable.todotxt_touch_icon);
 			aboutAlert.setPositiveButton("Follow us",
 					new DialogInterface.OnClickListener() {
