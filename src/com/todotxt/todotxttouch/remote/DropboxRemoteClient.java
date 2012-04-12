@@ -46,7 +46,7 @@ import com.todotxt.todotxttouch.R;
 import com.todotxt.todotxttouch.TodoApplication;
 import com.todotxt.todotxttouch.util.Util;
 
-class DropboxRemoteClient implements RemoteClient {
+class DropboxRemoteClient extends RemoteFileClient {
 	private static final String TODO_TXT_REMOTE_FILE_NAME = "todo.txt";
 	private static final AccessType ACCESS_TYPE = AccessType.DROPBOX;
 	private static final File TODO_TXT_TMP_FILE = new File(
@@ -59,6 +59,7 @@ class DropboxRemoteClient implements RemoteClient {
 
 	public DropboxRemoteClient(TodoApplication todoApplication,
 			SharedPreferences sharedPreferences) {
+		super(sharedPreferences);
 		this.todoApplication = todoApplication;
 		this.sharedPreferences = sharedPreferences;
 	}
@@ -146,7 +147,7 @@ class DropboxRemoteClient implements RemoteClient {
 	}
 
 	@Override
-	public File pullTodo() {
+	public File pullTodoFile() {
 		if (!isAvailable()) {
 			Intent i = new Intent(Constants.INTENT_GO_OFFLINE);
 			sendBroadcast(i);
@@ -183,7 +184,7 @@ class DropboxRemoteClient implements RemoteClient {
 	}
 
 	@Override
-	public void pushTodo(File file) {
+	public void pushTodoFile(File file) {
 		try {
 			if (!file.exists()) {
 				Util.createParentDirectory(file);

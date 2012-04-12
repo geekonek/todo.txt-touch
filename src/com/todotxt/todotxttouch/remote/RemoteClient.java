@@ -23,6 +23,10 @@
 package com.todotxt.todotxttouch.remote;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.todotxt.todotxttouch.task.Task;
 
 public interface RemoteClient {
 
@@ -77,14 +81,14 @@ public interface RemoteClient {
 	 * 
 	 * @return
 	 */
-	File pullTodo();
+	ArrayList<Task> pullTodo();
 
 	/**
 	 * Push mobile
 	 * 
 	 * @param file
 	 */
-	void pushTodo(File file);
+	void pushTodo(ArrayList<Task> file);
 
 	/**
 	 * A method to check if the remote service is available (network, sd-card,

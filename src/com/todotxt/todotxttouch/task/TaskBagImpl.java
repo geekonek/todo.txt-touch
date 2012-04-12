@@ -156,8 +156,7 @@ class TaskBagImpl implements TaskBag {
 	@Override
 	public void pushToRemote(boolean overridePreference) {
 		if (!this.preferences.isWorkOfflineEnabled() || overridePreference) {
-			remoteClientManager.getRemoteClient().pushTodo(
-					LocalFileTaskRepository.TODO_TXT_FILE);
+			remoteClientManager.getRemoteClient().pushTodo( tasks );
 		}
 	}
 
@@ -168,20 +167,12 @@ class TaskBagImpl implements TaskBag {
 
 	@Override
 	public void pullFromRemote(boolean overridePreference) {
-		try {
-			if (!this.preferences.isWorkOfflineEnabled() || overridePreference) {
-				File remoteFile = remoteClientManager.getRemoteClient()
-						.pullTodo();
-				if (remoteFile != null && remoteFile.exists()) {
-					ArrayList<Task> remoteTasks = TaskIo
-							.loadTasksFromFile(remoteFile);
+		if (!this.preferences.isWorkOfflineEnabled() || overridePreference) {
+				ArrayList<Task> remoteTasks = remoteClientManager.getRemoteClient().pullTodo();
+				if (remoteTasks != null){
 					localRepository.store(remoteTasks);
 					reload();
 				}
-			}
-		} catch (IOException e) {
-			throw new TaskPersistException(
-					"Error loading tasks from remote file", e);
 		}
 	}
 
