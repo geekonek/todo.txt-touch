@@ -22,7 +22,7 @@
  */
 package com.todotxt.todotxttouch.task;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A repository for tasks working at the local data store level
@@ -34,7 +34,7 @@ interface LocalTaskRepository {
 
 	void purge();
 
-	ArrayList<Task> load();
+	List<Task> load();
 
-	void store(ArrayList<Task> tasks);
+	void store(List<Task> tasks);
 }

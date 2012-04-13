@@ -25,6 +25,7 @@ package com.todotxt.todotxttouch.task;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.os.Environment;
 import android.util.Log;
@@ -84,7 +85,7 @@ class LocalFileTaskRepository implements LocalTaskRepository {
 	}
 
 	@Override
-	public void store(ArrayList<Task> tasks) {
+	public void store(List<Task> tasks) {
 		TaskIo.writeToFile(tasks, TODO_TXT_FILE,
 				preferences.isUseWindowsLineBreaksEnabled());
 	}

@@ -81,14 +81,14 @@ public interface RemoteClient {
 	 * 
 	 * @return
 	 */
-	ArrayList<Task> pullTodo();
+	List<Task> pullTodo();
 
 	/**
 	 * Push mobile
 	 * 
 	 * @param file
 	 */
-	void pushTodo(ArrayList<Task> file);
+	void pushTodo(List<Task> file);
 
 	/**
 	 * A method to check if the remote service is available (network, sd-card,

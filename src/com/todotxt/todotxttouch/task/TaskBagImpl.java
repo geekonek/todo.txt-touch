@@ -46,7 +46,7 @@ class TaskBagImpl implements TaskBag {
 	private Preferences preferences;
 	private final LocalTaskRepository localRepository;
 	private final RemoteClientManager remoteClientManager;
-	private ArrayList<Task> tasks = new ArrayList<Task>();
+	private List<Task> tasks = new ArrayList<Task>();
 
 	public TaskBagImpl(Preferences preferences,
 			LocalTaskRepository localRepository,
@@ -168,7 +168,7 @@ class TaskBagImpl implements TaskBag {
 	@Override
 	public void pullFromRemote(boolean overridePreference) {
 		if (!this.preferences.isWorkOfflineEnabled() || overridePreference) {
-				ArrayList<Task> remoteTasks = remoteClientManager.getRemoteClient().pullTodo();
+				List<Task> remoteTasks = remoteClientManager.getRemoteClient().pullTodo();
 				if (remoteTasks != null){
 					localRepository.store(remoteTasks);
 					reload();

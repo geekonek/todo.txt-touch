@@ -26,6 +26,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.todotxt.todotxttouch.TodoApplication;
+import com.todotxt.todotxttouch.remote.dropbox.DropboxRemoteClient;
+import com.todotxt.todotxttouch.remote.local.DummyLocalClient;
 
 /**
  * Manager for obtaining, switching, etc. remote clients
@@ -66,7 +68,7 @@ public class RemoteClientManager implements
 	private RemoteClient getRemoteClient(Client clientToken) {
 		switch(clientToken){
 			case DROPBOX: return new DropboxRemoteClient(todoApplication, sharedPreferences);
-			case LOCAL: return null;
+			case LOCAL: return new DummyLocalClient(todoApplication, sharedPreferences);
 			case SYNCTXT: return null;
 		}
 		

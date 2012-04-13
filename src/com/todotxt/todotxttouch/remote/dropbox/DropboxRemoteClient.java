@@ -20,7 +20,7 @@
  * @license http://www.gnu.org/licenses/gpl.html
  * @copyright 2009-2012 Todo.txt contributors (http://todotxt.com)
  */
-package com.todotxt.todotxttouch.remote;
+package com.todotxt.todotxttouch.remote.dropbox;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -44,9 +44,12 @@ import com.dropbox.client2.session.Session.AccessType;
 import com.todotxt.todotxttouch.Constants;
 import com.todotxt.todotxttouch.R;
 import com.todotxt.todotxttouch.TodoApplication;
+import com.todotxt.todotxttouch.remote.Client;
+import com.todotxt.todotxttouch.remote.RemoteException;
+import com.todotxt.todotxttouch.remote.RemoteFileClient;
 import com.todotxt.todotxttouch.util.Util;
 
-class DropboxRemoteClient extends RemoteFileClient {
+public class DropboxRemoteClient extends RemoteFileClient {
 	private static final String TODO_TXT_REMOTE_FILE_NAME = "todo.txt";
 	private static final AccessType ACCESS_TYPE = AccessType.DROPBOX;
 	private static final File TODO_TXT_TMP_FILE = new File(
