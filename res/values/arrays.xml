@@ -31,4 +31,10 @@ You should have received a copy of the GNU General Public License along with Tod
 		<item>Text (A-Z)</item>
 	</string-array>
 
+	<string-array name="remote_providers">
+	    <item>Dropbox</item>
+	    <item>Local</item>
+	    <item>Sync.txt</item>
+	</string-array>
+	
 </resources>

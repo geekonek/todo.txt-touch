@@ -23,6 +23,7 @@
 package com.todotxt.todotxttouch.remote;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.todotxt.todotxttouch.TodoApplication;
 
@@ -33,9 +34,8 @@ import com.todotxt.todotxttouch.TodoApplication;
  */
 public class RemoteClientManager implements
 		SharedPreferences.OnSharedPreferenceChangeListener {
-	// private final static String TAG =
-	// RemoteClientManager.class.getSimpleName();
-	@SuppressWarnings("unused")
+	private final static String TAG = RemoteClientManager.class.getSimpleName();
+	
 	private Client currentClientToken;
 	private RemoteClient currentClient;
 	private TodoApplication todoApplication;
@@ -46,8 +46,10 @@ public class RemoteClientManager implements
 		this.todoApplication = todoApplication;
 		sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 		this.sharedPreferences = sharedPreferences;
-		calculateRemoteClient(sharedPreferences);
-		currentClient.authenticate();
+		calculateRemoteClient();
+		if (currentClient != null){
+			currentClient.authenticate();
+		}
 	}
 
 	public RemoteClient getRemoteClient() {
@@ -62,7 +64,14 @@ public class RemoteClientManager implements
 	 * @return
 	 */
 	private RemoteClient getRemoteClient(Client clientToken) {
-		return new DropboxRemoteClient(todoApplication, sharedPreferences);
+		switch(clientToken){
+			case DROPBOX: return new DropboxRemoteClient(todoApplication, sharedPreferences);
+			case LOCAL: return null;
+			case SYNCTXT: return null;
+		}
+		
+		return null;
+		
 	}
 
 	@Override
@@ -71,8 +80,27 @@ public class RemoteClientManager implements
 		// TODO later
 	}
 
-	private void calculateRemoteClient(SharedPreferences sharedPreferences) {
-		currentClient = getRemoteClient(Client.DROPBOX);
-		currentClientToken = Client.DROPBOX;
+	public void calculateRemoteClient() {
+		String provider = sharedPreferences.getString("remove_provider_type", null);
+		if (provider != null){
+			currentClientToken = Client.valueOf(provider);
+			currentClient = getRemoteClient(currentClientToken);
+		}
+	}
+
+	public void setRemoteType(String selectedItem) {
+		String provider = sharedPreferences.getString("remove_provider_type", null);
+		String selectedProvider = selectedItem.equalsIgnoreCase("Dropbox") ? Client.DROPBOX.name() : 
+			(selectedItem.equalsIgnoreCase("Local") ? Client.LOCAL.name() : Client.SYNCTXT.name());
+		if (provider == null || provider != selectedProvider){
+			Log.d(TAG, "Saving provider selection to: "+selectedProvider);
+			sharedPreferences.edit().putString("remove_provider_type", selectedProvider).apply();
+		}
+		Log.d(TAG, "Setting client type to "+selectedProvider);
+		
+		calculateRemoteClient();
+		if (currentClient != null){
+			currentClient.authenticate();
+		}
 	}
 }

@@ -28,5 +28,7 @@ package com.todotxt.todotxttouch.remote;
  * @author Tim Barlotta
  */
 public enum Client {
-	DROPBOX;
+	DROPBOX,
+	LOCAL,
+	SYNCTXT;
 }

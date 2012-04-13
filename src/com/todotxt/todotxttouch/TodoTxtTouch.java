@@ -636,6 +636,13 @@ public class TodoTxtTouch extends ListActivity implements
 	 *            true to force push, pull dialog
 	 */
 	private void syncClient(boolean forceSyncChoice) {
+		
+		if (m_app.getRemoteClientManager().getRemoteClient() == null){
+			Log.v(TAG, "Forcing logout, no remote provider present in configuration");
+			sendBroadcast(new Intent(Constants.INTENT_ACTION_LOGOUT));
+			return;
+		} 
+		
 		if (isOfflineMode() || forceSyncChoice) {
 			if (!m_app.getRemoteClientManager().getRemoteClient().isAvailable()) {
 				Log.v(TAG, "Working offline; no network");

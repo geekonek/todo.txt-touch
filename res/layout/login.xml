@@ -70,6 +70,14 @@ You should have received a copy of the GNU General Public License along with Tod
 	/>
 	</LinearLayout>
 	
+	<Spinner android:id="@+id/provider_selection" 
+	    android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:textSize="8pt"
+		android:entries="@array/remote_providers"
+		android:prompt="@string/remote_providers_prompt"/>
+
 	<Button android:id="@+id/login"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

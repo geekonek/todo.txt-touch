@@ -22,6 +22,7 @@
  */
 package com.todotxt.todotxttouch;
 
+import com.todotxt.todotxttouch.R;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -32,6 +33,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.todotxt.todotxttouch.remote.RemoteClient;
 import com.todotxt.todotxttouch.util.Util;
@@ -75,9 +77,8 @@ public class LoginScreen extends Activity {
 			}
 		});
 
-		RemoteClient remoteClient = m_app.getRemoteClientManager()
-				.getRemoteClient();
-		if (remoteClient.isAuthenticated()) {
+		RemoteClient remoteClient = m_app.getRemoteClientManager().getRemoteClient();
+		if (remoteClient != null && remoteClient.isAuthenticated()) {
 			switchToTodolist();
 		}
 	}
@@ -115,12 +116,16 @@ public class LoginScreen extends Activity {
 	}
 
 	void startLogin() {
-		final RemoteClient client = m_app.getRemoteClientManager()
-				.getRemoteClient();
+		
+		Spinner selectedClient = (Spinner)findViewById(R.id.provider_selection);
+		m_app.getRemoteClientManager().setRemoteType((String)selectedClient.getSelectedItem());
+		final RemoteClient client = m_app.getRemoteClientManager().getRemoteClient();
 
-		if (!client.isAvailable()) {
-			Log.d(TAG, "Remote service " + client.getClass().getSimpleName()
-					+ " is not available; aborting login");
+		if (client == null){
+			Log.d(TAG, "Remote service not configured; aborting login");
+			Util.showToastLong(m_app, R.string.toast_login_notconnected);
+		} else if (!client.isAvailable()) {
+			Log.d(TAG, "Remote service " + client.getClass().getSimpleName()+ " is not available; aborting login");
 			Util.showToastLong(m_app, R.string.toast_login_notconnected);
 		} else {
 			client.startLogin();
